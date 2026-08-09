@@ -2,7 +2,16 @@
 
 > 对应简历表述（意译）：多 Agent 架构选型与落地——主 Agent + fork SubAgent，解决单 Agent 上下文爆炸；主 loop 30 轮 / 300s；跨平台并行检索相对串行延迟约降 65%。  
 > 原文依据：`globex/03_0`、`03_1`、`11`、`14`；全景讲解：`app/agent/*`；验证脚本：`demos/demo_parallel_fork.py`、`demo_timeout_guard.py`。  
-> 用法：面试口述用 §1；啃代码用 §2–3；讲「为什么像生产」用 §4；内化经历用 §5（模拟实习叙事，按「可辩护」写，勿把模拟说成编造数据）。
+> 用法：面试口述用 §1；啃代码用 §2–3；讲「为什么像生产」用 §4；内化经历用 §5（模拟实习叙事，按「可辩护」写，勿把模拟说成编造数据）。  
+> **同步/并发/异步**：全景目标=第3档，简历①深挖仍以并行为主——见 `02_同步_并发_异步定稿.md`（已定稿，学习改动不大）。
+
+---
+
+## 0. 和「全异步」的关系（先读 30 秒）
+
+- 次生产级**目标形态**是第3档全链路异步（`app/api` + `ainvoke` + `wait_for`）。  
+- 简历①要拷打的是：**同质 fork + 同轮多 dispatch 并行 + 防失控**；~65% 来自并行，不是来自「写了 async」。  
+- 学习优先级：**并行与护栏 ≫ 异步形态（能口述即可）**。不必因定稿 A 重学一整条 async 重构。
 
 ---
 
@@ -226,7 +235,7 @@ LangChain `ContextThreadPoolExecutor` 在 map/submit 前 `copy_context()` → �
 **必懂**  
 - Agent 必须单例 + 共享 Checkpointer，否则每次新建等于失忆。  
 - 主/子隔离 = 不同 `thread_id`，不是两个 Agent 对象。  
-- **300s 超时**：原文用 `asyncio.wait_for(ainvoke)`；同步 `.invoke()` 阶段可能尚未挂上——面试如实说「依赖异步 API 层一并接入」，并会对比线程池超时≠真取消（见 `demo_timeout_guard.py`）。
+- **300s 超时**：定稿落在第3档——`asyncio.wait_for(ainvoke)` 真取消；与「同轮多 tool 并发降延迟」是两件事。线程池「放弃等待但后台仍跑」≠真取消（见 `demos/demo_timeout_guard.py`）。
 
 **学习检查**  
 从 `run_agent` 画到 `dispatch_tool` 再画回 `build_agent` 的调用环，标出单例与 thread_id。

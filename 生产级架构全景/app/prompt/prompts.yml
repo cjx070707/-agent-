@@ -1,0 +1,5 @@
+# 文件：app/prompt/prompts.yml ｜ 背景板（非简历重点，真实代码已在 globex-agent 实现）
+#
+# 存放 system prompt 模板，被 app/agent/prompts.py 的 get_system_prompt()
+# 读取。里面有一个 {long_term_preferences} 占位符，是简历①③之间的连接点
+# （见 app/agent/prompts.py 的详细讲解）。

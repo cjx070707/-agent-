@@ -18,7 +18,7 @@
 |---|---|---|---|
 | ① 多 Agent 架构（主+Fork子Agent） | `app/agent/` | ✅ 已精讲，含实测数据 | ✅ `globex-agent/app/agent/` 已实现 |
 | ② Cache Breakpoint 上下文压缩 | `app/compress/` | ✅ 学习稿+日程+demo | 讲解版已升级（非复刻仓） |
-| ③ 长期记忆 Store | `app/memory/` | ⏳ 待学习 | ❌ 未实现 |
+| ③ 长期记忆 Store | `app/memory/` | ✅ 学习稿+日程+demo | 讲解版已升级 |
 | ④ 三塔向量召回 | `app/recall/towers.py` `app/recall/ann.py` | ⏳ 待学习 | ❌ 未实现 |
 
 标 ⏳ 的模块目前文件里只有占位说明（几行字，标注"待模块 X 学习后补全"），
@@ -48,13 +48,14 @@
 │   ├── 02_同步_并发_异步定稿.md    ★ 全景=第3档；学习仍以并行为先
 │   ├── 简历第一条_多Agent架构/     ★ 简历①全套（学习稿 + 实习日程）
 │   ├── 简历第二条_CacheBreakpoint/ ★ 简历②（01 学习 + 03 日程 + demo）
-│   ├── 简历第三条_长期记忆Store/  ★ 简历③（设计草案，粗讲中）
+│   ├── 简历第三条_长期记忆Store/  ★ 简历③（01+03+demo）
 │   ├── 次生产级灰度模拟可行性评估.md
 │   └── 原文档与次生产级差别.md
 ├── demos/                         可实际运行的验证脚本（理解用，非正式工程）
 │   ├── demo_parallel_fork.py       验证"为什么并行能降延迟 65%"
 │   ├── demo_timeout_guard.py       验证"线程池超时 vs asyncio.wait_for 真取消"
-│   └── demo_cache_breakpoint.py    盲目压缩 vs Cache-Aware（指纹模拟 cache）
+│   ├── demo_cache_breakpoint.py    盲目压缩 vs Cache-Aware（指纹模拟 cache）
+│   └── demo_memory_store.py        跨会话写入 → read_relevant 注入
 └── app/
     ├── ops/        ★ 次生产级补丁（原文档无）：灰度开关/指标/回滚/放量故事线
     │   ├── flags.py

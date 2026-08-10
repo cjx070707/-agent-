@@ -1,11 +1,14 @@
 """
-文件：app/memory/in_memory_store.py ｜ ⏳ 简历③ 占位待补
-参考原文：globex/06_extract.md 第 334 行起
+文件：app/memory/in_memory_store.py
+所属模块：★★★ 简历③ 长期记忆 Store
+参考原文：globex/06_extract.md
 
-【占位说明】
-`PreferenceStore` 接口的本地内存实现，用来先跑通读写逻辑，不依赖外部数据库。
-简历里写的"Redis/Postgres 后端"是比这一步更靠后的持久化升级，原文顺序是先
-用内存实现验证逻辑，再迁移到真实存储。会在学习模块③时补全完整讲解。
+【做什么】
+PreferenceStore 的内存实现，用于先跑通写/读/相关召回逻辑。
 
-真实代码现状：globex-agent 里还没有这个文件。
+【解决的问题】
+不先上 Redis 也能验证：Reflect 写入 → 新会话 read_relevant → 注入。
+
+【次生产级叙事】
+内存仅开发；灰度/生产换 Redis 或 Postgres，接口不变。
 """

@@ -1,10 +1,19 @@
 """
-文件：app/memory/schemas.py ｜ ⏳ 简历③ 占位待补
-参考原文：globex/06_extract.md 第 40-45 行（`PreferenceEntry` 定义处）
+文件：app/memory/schemas.py
+所属模块：★★★ 简历③ 长期记忆 Store
+参考原文：globex/06_extract.md
 
-【占位说明】
-这里将定义长期记忆的数据结构（原文是 `PreferenceEntry`：偏好内容、类别、
-置信度、时间戳、来源等字段）。会在学习模块③时补全完整讲解。
+【做什么】
+定义 PreferenceEntry：一条跨会话偏好/黑名单/历史选择记录的数据结构。
 
-真实代码现状：globex-agent 里还没有这个文件。
+【解决的问题】
+Store 不存原始聊天，只存可注入、可衰减、可排序的小条目，控制注入体积。
+
+【关键字段】
+- key / category(preference|history|blacklist) / content
+- confidence、updated_at（软衰减与合并）
+- embedding 或关键词侧写（read_relevant 用）
+
+【面试一句】
+「记忆是结构化条目，不是把对话存盘再全文塞回 prompt。」
 """

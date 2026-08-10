@@ -1,12 +1,15 @@
 """
-文件：app/memory/vector_store.py ｜ ⏳ 简历③ 占位待补
-参考原文：globex/06_extract.md 第 404 行起 + globex/04_1_extract.md 第 6.4 节
-（"黑名单全量 + 偏好 Top-K"）、第 509 行（迁移到 OpenSearch 后端）
+文件：app/memory/vector_store.py
+所属模块：★★★ 简历③ 长期记忆 Store
+参考原文：globex/06_extract.md、globex/04_1_extract.md（黑名单全量 + 偏好 Top-K）
 
-【占位说明】
-`PreferenceStore` 接口的向量检索实现，原文第 04-1 章明确要求"黑名单全量
-返回 + 软偏好向量 Top-K"（黑名单不能被 Top-K 截断掉），后端迁移到
-OpenSearch Hybrid Query。会在学习模块③时补全完整讲解。
+【做什么】
+带向量/混合检索的 Store 实现叙事：query 编码后与条目 embedding 算相关度，
+再叠置信度与软衰减；黑名单可全量或加权，避免被 Top-K 截断。
 
-真实代码现状：globex-agent 里还没有这个文件。
+【解决的问题】
+关键词不够时的语义相关（「洗漱包」仍能召回材质黑名单）。
+
+【面试一句】
+「相关读取 = 相关度 × 置信度 × 时间衰减 + 黑名单加权；后端可以是 PG/Redis/OpenSearch。」
 """

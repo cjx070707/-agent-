@@ -109,14 +109,19 @@ def main() -> None:
     for score, item in ann_search(q_vec, 3):
         print(f"  {score:.3f}  {item.item_id}  {item.title}")
 
-    section("2) Query-only vs 双通道个性化")
-    print("Query-only Top-3:")
+    section("2) Query-only vs 个性化通道 vs 双通道合并")
+    print("语义通道（Query-only）:")
     for score, item, tag in dual_channel(q_vec, None, 3):
         print(f"  {score:.3f}  [{tag}]  {item.item_id}  {item.title}")
-    print("双通道（高端 user，β 略加大便于观察）Top-3:")
+    personal_only = fuse(q_vec, u_premium, alpha=0.55, beta=0.45)
+    print("个性化通道（fuse Query⊕User，单独 ANN）:")
+    for score, item in ann_search(personal_only, 3):
+        print(f"  {score:.3f}  [personal]  {item.item_id}  {item.title}")
+    print("双通道合并（两路取 max 分，语义保底）:")
     for score, item, tag in dual_channel(q_vec, u_premium, 3, alpha=0.55, beta=0.45):
         print(f"  {score:.3f}  [{tag}]  {item.item_id}  {item.title}")
-    print("→ 语义仍保相关；个性化把 Premium Packing Cubes 抬过廉价 S1。")
+    print("→ 个性化通道里 A2 会冲到很前；合并后 A2 分数从 ~0.70 抬到 ~0.89，")
+    print("  同时语义高分的 A1/S1 不会被个性化「挤没」（保相关性）。")
 
     section("3) 跨语言近邻（示意）")
     # 中文 query 但带一点 en 维：模拟共享空间 / 对齐后的效果

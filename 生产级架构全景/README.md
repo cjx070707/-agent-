@@ -19,10 +19,9 @@
 | ① 多 Agent 架构（主+Fork子Agent） | `app/agent/` | ✅ 已精讲，含实测数据 | ✅ `globex-agent/app/agent/` 已实现 |
 | ② Cache Breakpoint 上下文压缩 | `app/compress/` | ✅ 学习稿+日程+demo | 讲解版已升级（非复刻仓） |
 | ③ 长期记忆 Store | `app/memory/` | ✅ 学习稿+日程+demo | 讲解版已升级 |
-| ④ 三塔向量召回 | `app/recall/towers.py` `app/recall/ann.py` | ⏳ 待学习 | ❌ 未实现 |
+| ④ 三塔向量召回 | `app/recall/towers.py` `app/recall/ann.py` | ✅ 学习稿+日程+demo | 讲解版已升级 |
 
-标 ⏳ 的模块目前文件里只有占位说明（几行字，标注"待模块 X 学习后补全"），
-学到对应模块时会把这些文件升级成和 `app/agent/` 一样的完整讲解格式。
+标 ✅ 的四条均已有学习稿；背景板目录仍只做一两句话说明。
 
 ## 深度图例
 
@@ -33,8 +32,8 @@
   `app/eval/` `app/prompt/` `app/utils/` 以及 `pipelines/` `scripts/`
   `data/` `frontend/` `tests/` `docker/`。这些文件存在的目的是让你看到
   "一个完整生产级项目大概长什么样"，不是简历重点，不深挖。
-- **占位待补**：`app/compress/` `app/memory/` `app/recall/towers.py`
-  `app/recall/ann.py`——对应简历②③④，会按学习顺序逐个升级为完整讲解。
+- **简历②③④讲解版**：`app/compress/` `app/memory/` `app/recall/towers.py`
+  `app/recall/ann.py`——已升级为与简历重点同级的完整讲解格式。
 - **次生产级补丁**：`app/ops/`——原文档未覆盖的灰度运营壳（讲解为主，
   不是可运行配置中心）。详见 `文档/原文档与次生产级差别.md`。
 
@@ -49,13 +48,15 @@
 │   ├── 简历第一条_多Agent架构/     ★ 简历①全套（学习稿 + 实习日程）
 │   ├── 简历第二条_CacheBreakpoint/ ★ 简历②（01 学习 + 03 日程 + demo）
 │   ├── 简历第三条_长期记忆Store/  ★ 简历③（01+03+demo）
+│   ├── 简历第四条_三塔向量召回/   ★ 简历④（01+03+demo）
 │   ├── 次生产级灰度模拟可行性评估.md
 │   └── 原文档与次生产级差别.md
 ├── demos/                         可实际运行的验证脚本（理解用，非正式工程）
 │   ├── demo_parallel_fork.py       验证"为什么并行能降延迟 65%"
 │   ├── demo_timeout_guard.py       验证"线程池超时 vs asyncio.wait_for 真取消"
 │   ├── demo_cache_breakpoint.py    盲目压缩 vs Cache-Aware（指纹模拟 cache）
-│   └── demo_memory_store.py        跨会话写入 → read_relevant 注入
+│   ├── demo_memory_store.py        跨会话写入 → read_relevant 注入
+│   └── demo_tri_tower_recall.py    同义/双通道/跨语言/后过滤红线
 └── app/
     ├── ops/        ★ 次生产级补丁（原文档无）：灰度开关/指标/回滚/放量故事线
     │   ├── flags.py
@@ -87,19 +88,19 @@
     │   ├── shipping_calc.py
     │   └── shopping_summary.py
     ├── recall/
-    │   ├── towers.py     ⏳ 简历④ 占位待补（Query/User/Item 三塔编码）
-    │   ├── ann.py         ⏳ 简历④ 占位待补（Faiss ANN 检索）
+    │   ├── towers.py     ★★★ 简历④ Query/User 在线编码 + 融合
+    │   ├── ann.py         ★★★ 简历④ Faiss ANN + 后过滤红线
     │   ├── category_kb.py 背景板
     │   ├── reranker.py    背景板
     │   ├── fx.py          背景板
     │   ├── duty.py        背景板
     │   └── shipping.py    背景板
-    ├── memory/      ⏳ 简历③ 占位待补
+    ├── memory/      ★★★ 简历③
     │   ├── schemas.py
     │   ├── store.py            抽象接口 PreferenceStore
     │   ├── in_memory_store.py  本地内存实现
     │   └── vector_store.py     向量/OpenSearch 实现
-    ├── compress/    ⏳ 简历② 占位待补
+    ├── compress/    ★★★ 简历②
     │   ├── breakpoint.py
     │   └── compressor.py
     ├── eval/        背景板
